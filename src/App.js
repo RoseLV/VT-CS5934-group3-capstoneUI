@@ -1,25 +1,59 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Button, Input, Upload } from "antd";
+import { UploadOutlined } from "@ant-design/icons";
+const { TextArea } = Input;
 
-function App() {
+const LandingPage = () => {
+  const handleUpload = (info) => {
+    console.log("Upload Info:", info);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div
+      style={{
+        padding: "50px",
+        textAlign: "center",
+        display: "flex",
+        flexDirection: "column",
+        height: "100vh",
+        justifyContent: "space-between",
+      }}
+    >
+      <h1> Misinformation Detector</h1>
+
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-around",
+          alignItems: "center",
+          width: "100%",
+        }}
+      >
+        <Upload beforeUpload={() => false} onChange={handleUpload}>
+          <Button icon={<UploadOutlined />}>Upload</Button>
+        </Upload>
+        <p>AND / OR</p>
+        <TextArea
+          placeholder="Enter something..."
+          style={{ width: "300px", marginBottom: "2em" }}
+        />
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-around",
+            alignItems: "center",
+            width: "100%",
+          }}
         >
-          Learn React
-        </a>
-      </header>
+          {/* Upload Button on the Left */}
+
+          {/* Submit Button on the Right */}
+          <Button type="primary">Submit</Button>
+        </div>
+      </div>
     </div>
   );
-}
+};
 
-export default App;
+export default LandingPage;
