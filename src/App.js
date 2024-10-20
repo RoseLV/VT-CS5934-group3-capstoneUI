@@ -11,7 +11,6 @@ const LandingPage = () => {
   return (
     <div
       style={{
-        padding: "50px",
         textAlign: "center",
         display: "flex",
         flexDirection: "column",
