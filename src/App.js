@@ -22,6 +22,32 @@ const LandingPage = () => {
     }
   };
 
+  async function fetchSentiment(text) {
+    try {
+      const fallbackResponse = await fetch(
+        "http://cs5934-offline-group3-alb-985856241.us-east-1.elb.amazonaws.com/predict",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ texts: [text] }), // The /predict endpoint expects a "texts" array
+        }
+      );
+
+      if (!fallbackResponse.ok) throw new Error("Fallback API call failed");
+
+      const fallbackData = await fallbackResponse.json();
+
+      // Extract prediction from the first result in the response array
+      const fallbackPrediction = fallbackData[0]?.prediction || null;
+      return fallbackPrediction;
+    } catch (fallbackError) {
+      console.error("Fallback API error:", fallbackError);
+      return null; // Return null for invalid cases; // Final fallback value
+    }
+  }
+
   const handleUpload = (info) => {
     console.log("Upload Info:", info);
   };
@@ -31,7 +57,7 @@ const LandingPage = () => {
       message.warning("Please enter some text before submitting.");
       return;
     }
-    const result = await fetchFakeOrReal(text);
+    const result = await fetchSentiment(text);
     setResult(result);
     message.success(`The text is classified as: ${result}`);
   };
@@ -57,11 +83,11 @@ const LandingPage = () => {
           width: "100%",
         }}
       >
-        {/* Upload Section */}
+        {/* 
         <Upload beforeUpload={() => false} onChange={handleUpload}>
           <Button icon={<UploadOutlined />}>Upload</Button>
         </Upload>
-        <p>AND / OR</p>
+        <p>AND / OR</p> Upload Section */}
 
         {/* Text Input Section */}
         <TextArea
