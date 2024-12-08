@@ -10,7 +10,6 @@ const LandingPage = () => {
   const [isFake, setFakeNews] = useState(null);
   const [isPositive, setIsPositive] = useState(null);
 
-  // Mock API call to determine if the text is "Real" or "Fake"
   const fetchFakeOrReal = async (text) => {
     try {
       const fallbackResponse = await fetch(
@@ -136,11 +135,27 @@ const LandingPage = () => {
         <div style={{ margin: "20px", textAlign: "left" }}>
           <p>
             Fake News: {isFake}{" "}
-            {isFake && <Button type="primary" danger onClick={() => throttledHandleDisagree(isFake)}>disagree</Button>}
+            {isFake && (
+              <Button
+                type="primary"
+                danger
+                onClick={() => throttledHandleDisagree(isFake)}
+              >
+                disagree
+              </Button>
+            )}
           </p>
           <p>
             Sensiment: {isPositive}{" "}
-            {isPositive && <Button type="primary" danger onClick={() => throttledHandleDisagree(isPositive)}>disagree</Button>}
+            {isPositive && (
+              <Button
+                type="primary"
+                danger
+                onClick={() => throttledHandleDisagree(isPositive)}
+              >
+                disagree
+              </Button>
+            )}
           </p>
         </div>
       </div>
@@ -175,10 +190,10 @@ const LandingPage = () => {
           }}
         >
           {/* Submit Button */}
-          <Button type="primary" onClick={throttle(handleFakeNewsClick,3000)}>
+          <Button type="primary" onClick={throttle(handleFakeNewsClick, 3000)}>
             Check Fake News
           </Button>
-          <Button type="primary" onClick={throttle(handleSentimentClick,3000)}>
+          <Button type="primary" onClick={throttle(handleSentimentClick, 3000)}>
             Check Sentiment
           </Button>
           <Button type="primary" onClick={handleReset}>
